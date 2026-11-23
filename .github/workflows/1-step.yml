@@ -35,11 +35,18 @@ jobs:
           case-sensitive: false
           minimum-occurrences: 1
 
+      - name: Create test report
+        run: |
+          mkdir -p test-results
+          echo "GitHub Actions test completed" > test-results/report.txt
+
       - name: Upload test report
         uses: actions/upload-artifact@v4
         with:
           name: python-test-report
           path: test-results/
+          retention-days: 7
+          if-no-files-found: error
 
   find_exercise:
     name: Find Exercise Issue
